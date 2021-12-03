@@ -46,10 +46,12 @@
 			<% for (i=0; i<recipe.cook_step.length; i++) { %>
 				<p><%= i+1 %>. <%= recipe.cook_step[i] %></p>
 			<% } %>
-			<a href="/recipes/<%= recipe._id %>/edit"><button class="btn btn-outline-info btn-lg btn-block mb-2">Edit</button></a>
-			<form action="/recipes/<%= recipe._id %>?_method=DELETE" method="POST">
-				<button type="submit" class="btn btn-outline-danger btn-lg btn-block">Delete</button>
-			</form>
+			<% if (user && user.username===recipe.owner.username) { %>
+				<a href="/recipes/<%= recipe._id %>/edit"><button class="btn btn-outline-info btn-lg btn-block mb-2">Edit</button></a>
+				<form action="/recipes/<%= recipe._id %>?_method=DELETE" method="POST">
+					<button type="submit" class="btn btn-outline-danger btn-lg btn-block">Delete</button>
+				</form>
+			<% } %>
 		</div>
 	</div>
 	<div class="row show_comment-header mt-3">
@@ -61,12 +63,14 @@
 			<div class="col-2 border-end my-auto">
 				<%= comment.user.username %>
 			</div>
-			<div class="col-2 border-end my-auto d-flex flex-wrap justify-content-center">
-				<a class="btn btn-sm btn-success w-75 p-0 my-1" href="/recipes/<%= recipe._id %>/comments/<%= comment._id%>/edit">Edit</a>
-				<form class="w-75 my-1" action="/recipes/<%= recipe._id %>/comments/<%= comment._id %>/?_method=DELETE" method="POST">
-					<button class="btn btn-sm btn-danger w-100 p-0">Delete</button>
-				</form>
-			</div>
+			<% if (user && user.username===comment.user.username) { %>
+				<div class="col-2 border-end my-auto d-flex flex-wrap justify-content-center">
+					<a class="btn btn-sm btn-success w-75 p-0 my-1" href="/recipes/<%= recipe._id %>/comments/<%= comment._id%>/edit">Edit</a>
+					<form class="w-75 my-1" action="/recipes/<%= recipe._id %>/comments/<%= comment._id %>/?_method=DELETE" method="POST">
+						<button class="btn btn-sm btn-danger w-100 p-0">Delete</button>
+					</form>
+				</div>
+			<% } %>
 			<div class="col-8 my-auto">
 				<%= comment.text %>
 			</div>
