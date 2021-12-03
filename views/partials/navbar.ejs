@@ -1,0 +1,50 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/recipes"><img src="/img/logo.jpeg" alt="brand image" height=50 width=55></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/recipes">Recipes</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Explore
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+			<li><a class="dropdown-item" href="#">All</a></li>
+			<li><a class="dropdown-item" href="#">Beef</a></li>
+            <li><a class="dropdown-item" href="#">Pork</a></li>
+            <li><a class="dropdown-item" href="#">Chicken</a></li>
+            <li><a class="dropdown-item" href="#">Fish</a></li>
+			<li><a class="dropdown-item" href="#">Vegetarian</a></li>
+			<li><a class="dropdown-item" href="#">Vegan</a></li>
+			<li><a class="dropdown-item" href="#">Other</a></li>
+          </ul>
+        </li>
+		<li class="nav-item">
+          <a class="nav-link" aria-current="page" href="/recipes/new">Add Recipe</a>
+        </li>
+		<% if (user) { %>
+			<li class="nav-item">
+          		<a class="nav-link" aria-current="page" href="/logout">Log Out</a>
+        	</li>
+		<% } else { %>
+		  	<li class="nav-item">
+			  <a class="nav-link" aria-current="page" href="/login">Log In</a>
+			</li>
+			<li class="nav-item">
+			  <a class="nav-link" aria-current="page" href="/signup">Sign Up</a>
+			</li>
+		<% } %>
+		
+      </ul>
+      <form class="form-inline d-flex" action="/recipes/search" method="GET">
+        <input class="form-control me-2" type="search" placeholder="Search" name="term" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>

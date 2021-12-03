@@ -1,0 +1,119 @@
+<%- include('partials/header') %>
+<div class="container">
+	<h1>Edit Recipe</h1>
+	<form action="/recipes/<%= recipe.id %>?_method=PUT" method="POST">
+		<div class="mb-3">
+			<label for="category" class="form-label">Recipe Category</label>
+			<select class="form-control" id="category" name="category">
+				<option disabled>-- Choose Below --</option>
+				<option <%=recipe.category==="beef" ? 'selected' : '' %>>Beef</option>
+				<option <%=recipe.category==="pork" ? 'selected' : '' %>>Pork</option>
+				<option <%=recipe.category==="chicken" ? 'selected' : '' %>>Chicken</option>
+				<option <%=recipe.category==="fish" ? 'selected' : '' %>>Fish</option>
+				<option <%=recipe.category==="vegetarian" ? 'selected' : '' %>>Vegetarian</option>
+				<option <%=recipe.category==="vegan" ? 'selected' : '' %>>Vegan</option>
+				<option <%=recipe.category==="other" ? 'selected' : '' %>>Other</option>
+			</select>
+		</div>
+		<div class="mb-3">
+			<label for="title" class="form-label">Recipe Name</label>
+			<input type="text" class="form-control" name="title" value="<%= recipe.title %>">
+		</div>
+		<div class="mb-3">
+			<label for="serves" class="form-label">How many people will this serve?</label>
+			<input type="text" class="form-control" name="serves" value="<%= recipe.serves %>">
+		</div>
+		<div class="mb-3">
+			<label for="prep" class="form-label">Prep Time (minutes)</label>
+			<input type="number" class="form-control" name="prep" value="<%= recipe.prep %>">
+		</div>
+		<div class="mb-3">
+			<label for="cook" class="form-label">Cook Time (minutes)</label>
+			<input type="number" class="form-control" name="cook" value="<%= recipe.cook %>">
+		</div>
+		<div class="mb-3">
+			<label for="description" class="form-label">Recipe Description</label>
+			<input type="text" class="form-control" name="description" value="<%= recipe.description %>">
+		</div>
+		<div class="mb-3">
+			<label for="image" class="form-label">Link to Image</label>
+			<input type="text" class="form-control" name="image" value="<%= recipe.image %>">
+		</div>
+		<div class="mb-3">
+			<label for="ingredients" class="form-label">Recipe Ingredients</label>
+			<table class="table table-bordered table-hover" id="ingredient-table" name="ingredients">
+				<thead>
+					<tr>
+						<th class="text-center">#</th>
+						<th class="text-center">Ingredient</th>
+						<th class="text-center">Quantity</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% for (let i=0; i<recipe.ingredient.length; i++) { %>
+						<tr id='ingredient<%= i %>'>
+							<th scope="row" class="text-center"><%= i+1 %></th>
+							<td>
+								<input type="text" name='ingredient[]' value="<%= recipe.ingredient[i] %>" class="form-control"/>
+							</td>
+							<td>
+								<input type="text" name='quantity[]' value="<%= recipe.quantity[i] %>" class="form-control"/>
+							</td>
+						</tr>
+					<% } %>
+				</tbody>
+			</table>
+			<button type="button" id="add_ingredient" class="btn btn-default pull-left">Add Ingredient</button>
+			<button type="button" id='delete_ingredient' class="pull-right btn btn-default">Delete Ingredient</button>
+		</div>
+		<div class="mb-3">
+			<label for="prep_steps" class="form-label">Steps for Preparation</label>
+			<table class="table table-bordered table-hover" id="prep-table" name="prep_steps">
+				<thead>
+					<tr>
+						<th class="text-center">#</th>
+						<th class="text-center">Steps</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% for (let i=0; i<recipe.prep_step.length; i++) { %>
+						<tr id='prep<%= i %>'>
+							<th scope="row" class="text-center"><%= i+1 %></th>
+							<td>
+								<input type="text" name='prep_step[]' value="<%= recipe.prep_step[i] %>" class="form-control"/>
+							</td>
+						</tr>
+					<% } %>
+				</tbody>
+			</table>
+			<button type="button" id="add_prep" class="btn btn-default pull-left">Add Step</button>
+			<button type="button" id='delete_prep' class="pull-right btn btn-default">Delete Step</button>
+		</div>
+		<div class="mb-3">
+			<label for="cook_steps" class="form-label">Steps for Cooking</label>
+			<table class="table table-bordered table-hover" id="cook-table" name="cook_steps">
+				<thead>
+					<tr>
+						<th class="text-center">#</th>
+						<th class="text-center">Steps</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% for (let i=0; i<recipe.cook_step.length; i++) { %>
+						<tr id='cook<%= i %>'>
+							<th scope="row" class="text-center"><%= i+1 %></th>
+							<td>
+								<input type="text" name='cook_step[]' value="<%= recipe.cook_step[i] %>" class="form-control"/>
+							</td>
+						</tr>
+					<% } %>
+				</tbody>
+			</table>
+			<button type="button" id="add_cook" class="btn btn-default pull-left">Add Step</button>
+			<button type="button" id='delete_cook' class="pull-right btn btn-default">Delete Step</button>
+		</div>
+		<button type="submit" class="btn btn-primary">Submit</button>
+	</form>
+</div>
+<script src="/js/recipes_new.js"></script>
+<%- include('partials/footer') %>

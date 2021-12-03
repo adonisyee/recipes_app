@@ -1,0 +1,113 @@
+<%- include('partials/header') %>
+<div class="container">
+	<h1>Add New Recipe</h1>
+	<form action="/recipes" method="POST">
+		<div class="mb-3">
+			<label for="category" class="form-label">Recipe Category</label>
+			<select class="form-control" id="category" name="category">
+				<option disabled selected>--Choose Below--</option>
+				<option>Beef</option>
+				<option>Pork</option>
+				<option>Chicken</option>
+				<option>Fish</option>
+				<option>Vegetarian</option>
+				<option>Vegan</option>
+				<option>Other</option>
+			</select>
+		</div>
+		<div class="mb-3">
+			<label for="title" class="form-label">Recipe Name</label>
+			<input type="text" class="form-control" name="title" placeholder="e.g. Mac N' Cheese">
+		</div>
+		<div class="mb-3">
+			<label for="serves" class="form-label">How many people will this serve?</label>
+			<input type="text" class="form-control" name="serves" placeholder="e.g. 4-6 people">
+		</div>
+		<div class="mb-3">
+			<label for="prep" class="form-label">Prep Time (minutes)</label>
+			<input type="number" class="form-control" name="prep" placeholder="e.g. 30">
+		</div>
+		<div class="mb-3">
+			<label for="cook" class="form-label">Cook Time (minutes)</label>
+			<input type="number" class="form-control" name="cook" placeholder="e.g. 30">
+		</div>
+		<div class="mb-3">
+			<label for="description" class="form-label">Recipe Description</label>
+			<input type="text" class="form-control" name="description" placeholder="The best Mac N' Cheese ever!">
+		</div>
+		<div class="mb-3">
+			<label for="image" class="form-label">Link to Image</label>
+			<input type="text" class="form-control" name="image" placeholder="https://www.myimage.com">
+		</div>
+		<div class="mb-3">
+			<label for="ingredients" class="form-label">Recipe Ingredients</label>
+			<table class="table table-bordered table-hover" id="ingredient-table" name="ingredients">
+				<thead>
+					<tr>
+						<th class="text-center">#</th>
+						<th class="text-center">Ingredient</th>
+						<th class="text-center">Quantity</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr id='ingredient0'>
+						<th scope="row" class="text-center">1</th>
+						<td>
+						<input type="text" name='ingredient[]'  placeholder='Ingredient' class="form-control"/>
+						</td>
+						<td>
+						<input type="text" name='quantity[]' placeholder='e.g. 5 pieces, 1 tbsp' class="form-control"/>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<button type="button" id="add_ingredient" class="btn btn-default pull-left">Add Ingredient</button>
+			<button type="button" id='delete_ingredient' class="pull-right btn btn-default">Delete Ingredient</button>
+		</div>
+		<div class="mb-3">
+			<label for="prep_steps" class="form-label">Steps for Preparation</label>
+			<table class="table table-bordered table-hover" id="prep-table" name="prep_steps">
+				<thead>
+					<tr>
+						<th class="text-center">#</th>
+						<th class="text-center">Steps</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr id='prep0'>
+						<th scope="row" class="text-center">1</th>
+						<td>
+						<input type="text" name='prep_step[]'  placeholder='e.g. Mix your spices' class="form-control"/>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<button type="button" id="add_prep" class="btn btn-default pull-left">Add Step</button>
+			<button type="button" id='delete_prep' class="pull-right btn btn-default">Delete Step</button>
+		</div>
+		<div class="mb-3">
+			<label for="cook_steps" class="form-label">Steps for Cooking</label>
+			<table class="table table-bordered table-hover" id="cook-table" name="cook_steps">
+				<thead>
+					<tr>
+						<th class="text-center">#</th>
+						<th class="text-center">Steps</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr id='cook0'>
+						<th scope="row" class="text-center">1</th>
+						<td>
+						<input type="text" name='cook_step[]'  placeholder='e.g. Boil water' class="form-control"/>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<button type="button" id="add_cook" class="btn btn-default pull-left">Add Step</button>
+			<button type="button" id='delete_cook' class="pull-right btn btn-default">Delete Step</button>
+		</div>
+		<button type="submit" class="btn btn-primary">Submit</button>
+	</form>
+</div>
+<script src="/js/recipes_new.js"></script>
+<%- include('partials/footer') %>

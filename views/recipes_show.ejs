@@ -1,0 +1,79 @@
+<%- include("partials/header") %>
+
+<div class="container">
+	<div class="row mt-4">
+		<div class="col-6 show_image-container">
+			<img src="<%= recipe.image %>">
+		</div>
+		<div class="col-6 show_details-container">
+			<h1><%= recipe.title %></h1>
+			<p><%= recipe.description %></p>
+			<p>Serves: <%= recipe.serves %></p>
+			<p>Prep Time: <%= recipe.prep %> min</p>
+			<p>Cook Time: <%= recipe.cook %> min</p>
+			<p>Total Time: <%= recipe.prep + recipe.cook %> min</p>
+		</div>
+	</div>
+	<div class="row mt-4">
+		<div class="col-6 show_ingredients-container">
+			<h3>Ingredients:</h3>
+			<table class="table table-sm table-striped table-hover table-bordered">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Ingredient</th>
+						<th scope="col">Quantity</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% for (i=0; i<recipe.ingredient.length; i++) { %>
+						<tr>
+							<th scope="row"><%= i+1 %></th>
+							<td><%= recipe.ingredient[i] %></td>
+							<td><%= recipe.quantity[i] %></td>
+						</tr>
+					<% } %>
+				</tbody>
+			</table>
+		</div>
+		<div class="col-6 show_steps-container">
+			<h3>Directions</h3>
+			<h4>Prep:</h4>
+			<% for (i=0; i<recipe.prep_step.length; i++) { %>
+				<p><%= i+1 %>. <%= recipe.prep_step[i] %></p>
+			<% } %>
+			<h4>Cooking:</h4>
+			<% for (i=0; i<recipe.cook_step.length; i++) { %>
+				<p><%= i+1 %>. <%= recipe.cook_step[i] %></p>
+			<% } %>
+			<a href="/recipes/<%= recipe._id %>/edit"><button class="btn btn-outline-info btn-lg btn-block mb-2">Edit</button></a>
+			<form action="/recipes/<%= recipe._id %>?_method=DELETE" method="POST">
+				<button type="submit" class="btn btn-outline-danger btn-lg btn-block">Delete</button>
+			</form>
+		</div>
+	</div>
+	<div class="row show_comment-header mt-3">
+		COMMENT HEADER
+	</div>
+	<a href="/recipes/<%= recipe._id %>/comments/new"><button class="btn btn-success btn-large my-3 mb-4">Add Comment</button></a>
+	<% comments.forEach((comment) => { %>
+		<div class="row show_comment-container py-3 border">
+			<div class="col-2 border-end my-auto">
+				<%= comment.user.username %>
+			</div>
+			<div class="col-2 border-end my-auto d-flex flex-wrap justify-content-center">
+				<a class="btn btn-sm btn-success w-75 p-0 my-1" href="/recipes/<%= recipe._id %>/comments/<%= comment._id%>/edit">Edit</a>
+				<form class="w-75 my-1" action="/recipes/<%= recipe._id %>/comments/<%= comment._id %>/?_method=DELETE" method="POST">
+					<button class="btn btn-sm btn-danger w-100 p-0">Delete</button>
+				</form>
+			</div>
+			<div class="col-8 my-auto">
+				<%= comment.text %>
+			</div>
+		</div>
+	<% }) %>
+	<div class="py-5">
+	</div>
+</div>
+
+<%- include("partials/footer") %>
