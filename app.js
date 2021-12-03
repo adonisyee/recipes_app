@@ -13,7 +13,13 @@ const LocalStrategy = require('passport-local').Strategy;
 const expressSession = require('express-session');
 
 //Config import
-const config = require('./config');
+try {
+	var config = require('./config');
+} catch (e) {
+	console.log("Could not import config. Probably means you are not working locally.");
+	console.log(e);
+}
+
 
 //Route imports
 const mainRoutes = require('./routes/main');
@@ -40,7 +46,13 @@ app.use(morgan('tiny'));
 //CONFIG 
 //=======================
 //Connect to DB
-mongoose.connect(config.db.connection);
+try{
+	mongoose.connect(config.db.connection);
+} catch (e) {
+	console.log("Could not connect using config. Probably means you are not running locally.");
+	mongoose.connect(process.env.DB_CONNECTION_STRING);
+}
+
 
 //Body Parser Config
 app.use(bodyParser.urlencoded({extended:true}));
@@ -51,7 +63,7 @@ app.use(express.static("public"));
 
 //Express Session Config
 app.use(expressSession({
-	secret: "ewiothfbkajasdhfweliqfnakjkadghqegav",
+	secret: process.env.ES_SECRET || config.expressSession.secret,
 	resave: false,
 	saveUninitialized: false
 }));
@@ -82,6 +94,6 @@ app.use("/recipes/:id/comments", commentRoutes);
 ///======================
 //LISTEN
 //=======================
-app.listen(3000, ()=> {
-	console.log('Yelp Clone running on port 3000.');
+app.listen(process.env.PORT || 3000, ()=> {
+	console.log('Recipe app running.');
 })
