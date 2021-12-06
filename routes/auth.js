@@ -28,14 +28,17 @@ router.post('/signup', async (req, res) => {
 
 //Login - Show 
 router.get('/login', (req, res) => {
-	res.render('login');
+	res.render('login', {referer:req.headers.referer});
 })
 
 //Login
-router.post('/login', passport.authenticate('local', {
-	successRedirect: '/recipes', 
-	failureRedirect: '/login'
-}))
+router.post('/login', passport.authenticate('local', {failureRedirect: "/login"}), (req, res) => {
+    if (req.body.referer && (req.body.referer !== undefined && req.body.referer.slice(-6) !== "/login")) {
+        res.redirect(req.body.referer);
+    } else {
+        res.redirect("/recipes");
+    }
+});
 
 //Logout
 router.get('/logout', (req, res) => {
