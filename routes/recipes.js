@@ -65,6 +65,17 @@ router.get("/search", async (req, res) => {
 	}
 })
 
+//Category Route
+router.get("/category/:category", async (req, res) => {
+	const validCategories = ['beef', 'pork', 'chicken', 'fish', 'vegetarian', 'vegan', 'other'];
+	if (validCategories.includes(req.params.category.toLowerCase())) {
+		const recipes = await Recipe.find({category: req.params.category.toLowerCase()}).exec();
+		res.render("recipes", {recipes});
+	} else {
+		res.send("Please enter a valid category")
+	}
+})
+
 //Show Route
 router.get("/:id", async (req, res) => {
 	try {
