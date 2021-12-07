@@ -15,11 +15,10 @@ router.post('/signup', async (req, res) => {
 			username: req.body.username,
 			email: req.body.email
 		}), req.body.password);
-		console.log(newUser);
+		req.flash('success', `Signed up as ${newUser.username}`);
 		passport.authenticate('local')(req, res, () => {
 			res.redirect('/recipes');
 		})
-		
 	} catch (err) {
 		console.log(err);
 		res.send(err);
@@ -32,7 +31,8 @@ router.get('/login', (req, res) => {
 })
 
 //Login
-router.post('/login', passport.authenticate('local', {failureRedirect: "/login"}), (req, res) => {
+router.post('/login', passport.authenticate('local', {failureRedirect: "/login", failureFlash: true}), (req, res) => {
+	req.flash('success', 'Logged in successfully!');
     if (req.body.referer && (req.body.referer !== undefined && req.body.referer.slice(-6) !== "/login")) {
         res.redirect(req.body.referer);
     } else {
@@ -42,8 +42,14 @@ router.post('/login', passport.authenticate('local', {failureRedirect: "/login"}
 
 //Logout
 router.get('/logout', (req, res) => {
-	req.logout(); 
-	res.redirect('/recipes');
+	try {
+		req.logout(); 
+		req.flash('success', 'Logged you out!');
+		res.redirect('/recipes');
+	} catch (err) {
+		console.log(err);
+		res.redirect('/recipes');
+	}
 })
 
 module.exports = router;
