@@ -1,10 +1,17 @@
-.recipes-container {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-around;
-	border-top: 1px solid #000;
-	padding-top: 1.5rem;
+/* landing */
+.landing-container {
+	font-family: "Roboto", sans-serif;
 }
+.landing-title {
+	font-family: "Dancing Script", sans-serif;
+	font-size: 5rem;
+}
+
+.landing-text {
+	line-height: 2.2;
+}
+
+/* recipes */
 
 .card {
 	border: 1px solid #ddd;

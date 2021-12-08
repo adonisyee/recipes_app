@@ -1,3 +1,27 @@
-<h1>
-	Landing Page
-</h1>
+<%- include('partials/header') %>
+<div class="container landing-container">
+	<div class="row mt-4">
+		<div class="col-6 mt-5">
+			<h1 class="landing-title" id="landing-title"></h1>
+		</div>
+		<div class="col-6 mt-5 pt-4">
+			<h3>Hi, my name is Adonis Yee and welcome to my recipe app!</h3>
+		</div>
+	</div>
+	<div class="row mt-4">
+		<div class="col-6">
+		</div>
+		<div class="landing-text col-6">
+			<p>
+				I built this app as both a way to practice and demonstrate my full stack web development skills, 
+				and to serve as a library where I could preserve the recipes my grandmothers used to make for me and my family. This web 
+				app was built using HTML, CSS, and Javascript for the front end, and Node, Express, and MongoDB for the back end. Please 
+				let me know how you enjoy the functionality of the website, and I hope you may come across a recipe or two that you might
+				enjoy as well! Also, feel free to make an account and add your own family recipe if you would like to :-) 
+			</p>
+			<a href="/recipes"><button class="btn btn-outline-dark btn-lg btn-block mb-2" type="button">Explore Recipes</button></a>
+		</div>
+	</div>
+</div>
+<script src="/js/landing.js"></script>
+<%- include("partials/footer") %>
