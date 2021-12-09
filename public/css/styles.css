@@ -18,8 +18,9 @@
 .nav_title {
 	font-family: "Dancing Script", sans-serif;
 	font-size: 2rem;
+	margin: auto;
 }
-@media (min-width: 767px) {
+@media (min-width: 992px) {
 	.nav_title {
 		transform: translateX(-50%);
 		left: 50%;
