@@ -12,7 +12,7 @@ const morgan = require('morgan');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const expressSession = require('express-session');
-
+  
 //Config import
 try {
 	var config = require('./config');
@@ -20,7 +20,6 @@ try {
 	console.log("Could not import config. Probably means you are not working locally.");
 	console.log(e);
 }
-
 
 //Route imports
 const mainRoutes = require('./routes/main');

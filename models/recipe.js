@@ -7,7 +7,10 @@ const recipeSchema = new mongoose.Schema({
 	prep: Number,
 	cook: Number,
 	description: String,
-	image: String,
+	image: {
+		data: Buffer,
+		contentType: String
+	},
 	ingredient: [String],
 	quantity: [String],
 	prep_step: [String],

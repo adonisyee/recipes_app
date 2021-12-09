@@ -1,9 +1,24 @@
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
+const fs = require('fs');
 const Recipe = require('../models/recipe');
 const Comment = require('../models/comment');
 const isLoggedIn = require('../utils/isLoggedIn');
-const checkRecipeOwner = require('../utils/checkRecipeOwner')
+const checkRecipeOwner = require('../utils/checkRecipeOwner');
+const { promisify } = require('util')
+const unlinkAsync = promisify(fs.unlink)
+
+//Multer Config for image file storage
+var storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads')
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now())
+    }
+});
+var upload = multer({ storage: storage });
 
 //Index route
 router.get("/", async (req, res) => {
@@ -17,8 +32,9 @@ router.get("/", async (req, res) => {
 })
 
 //Create Route
-router.post("/", isLoggedIn, async (req, res) => {
+router.post("/", isLoggedIn, upload.single('image'), async (req, res) => {
 	const category = req.body.category.toLowerCase();
+	console.log(__dirname);
 	const newRecipe = {
 		category,
 		title: req.body.title,
@@ -26,7 +42,10 @@ router.post("/", isLoggedIn, async (req, res) => {
 		prep: req.body.prep,
 		cook: req.body.cook,
 		description: req.body.description,
-		image: req.body.image,
+		image: {
+            data: fs.readFileSync('uploads/' + req.file.filename),
+            contentType: 'image/png'
+        },
 		ingredient: req.body.ingredient,
 		quantity: req.body.quantity,
 		prep_step: req.body.prep_step,
@@ -38,6 +57,7 @@ router.post("/", isLoggedIn, async (req, res) => {
 	}
 	try {
 		const recipe = await Recipe.create(newRecipe);
+		await unlinkAsync('uploads/' + req.file.filename);
 		req.flash('success', 'Recipe created!');
 		res.redirect("/recipes/"+recipe._id);
 	} catch (err) {
@@ -101,7 +121,7 @@ router.get("/:id/edit", checkRecipeOwner, async (req, res) => {
 })
 
 //Update Route
-router.put("/:id", checkRecipeOwner, async (req, res) => {
+router.put("/:id", checkRecipeOwner, upload.single('image'), async (req, res) => {
 	const category = req.body.category.toLowerCase();
 	const updatedRecipe = {
 		category,
@@ -110,7 +130,10 @@ router.put("/:id", checkRecipeOwner, async (req, res) => {
 		prep: req.body.prep,
 		cook: req.body.cook,
 		description: req.body.description,
-		image: req.body.image,
+		image: {
+            data: fs.readFileSync('uploads/' + req.file.filename),
+            contentType: 'image/png'
+        },
 		ingredient: req.body.ingredient,
 		quantity: req.body.quantity,
 		prep_step: req.body.prep_step,
@@ -118,6 +141,7 @@ router.put("/:id", checkRecipeOwner, async (req, res) => {
 	}
 	try {
 		const recipe = await Recipe.findByIdAndUpdate(req.params.id, updatedRecipe, {new: true}).exec();
+		await unlinkAsync('uploads/' + req.file.filename);
 		req.flash('success', 'Recipe updated!');
 		res.redirect(`/recipes/${req.params.id}`);
 	} catch (err) {

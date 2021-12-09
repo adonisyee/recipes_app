@@ -1,7 +1,7 @@
 <%- include('partials/header') %>
 <div class="container">
 	<h1>Edit Recipe</h1>
-	<form action="/recipes/<%= recipe.id %>?_method=PUT" method="POST">
+	<form action="/recipes/<%= recipe.id %>?_method=PUT" enctype="multipart/form-data" method="POST">
 		<div class="mb-3">
 			<label for="category" class="form-label">Recipe Category</label>
 			<select class="form-control" id="category" name="category">
@@ -36,8 +36,8 @@
 			<input type="text" class="form-control" name="description" value="<%= recipe.description %>">
 		</div>
 		<div class="mb-3">
-			<label for="image" class="form-label">Link to Image</label>
-			<input type="text" class="form-control" name="image" value="<%= recipe.image %>">
+			<label for="image" class="form-label">Upload Image</label>
+			<input class="form-control" type="file" id="image" name="image">
 		</div>
 		<div class="mb-3">
 			<label for="ingredients" class="form-label">Recipe Ingredients</label>
