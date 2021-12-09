@@ -1,9 +1,11 @@
 //Helper Functions
-function typeText() {
+async function typeText() {
 	if (i < title.length) {
-		document.getElementById('landing-title').innerHTML += title.charAt(i);
+		document.getElementById('landing_title').innerHTML += title.charAt(i);
 		i++;
 		setTimeout(typeText, speed);
+	} else {
+		document.getElementById('landing_intro').style.opacity = '1';
 	}
 }
 

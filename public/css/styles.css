@@ -1,13 +1,26 @@
 /* landing */
-.landing-container {
+.landing_container {
 	font-family: "Roboto", sans-serif;
 }
-.landing-title {
+.landing_title-container {
 	font-family: "Dancing Script", sans-serif;
-	font-size: 5rem;
+	width: 40%;
+	margin-right: 10%;
 }
 
-.landing-text {
+#landing_title {
+	font-size: 8vw;
+}
+
+#landing_intro {
+	font-family: "Roboto Slab", sans-serif;
+	opacity: 0;
+	transition: opacity 2s;
+    -webkit-transition: opacity 2s;
+    -moz-transition: opacity 2s;
+}
+
+#landing_text {
 	line-height: 2.2;
 }
 
