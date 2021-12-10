@@ -100,9 +100,10 @@ router.get("/category/:category", async (req, res) => {
 })
 
 // Vote Route 
-router.post("/vote", isLoggedIn, (req, res) => {
+router.post("/vote", isLoggedIn, async (req, res) => {
+	const recipe = await Recipe.findById(req.body.recipeId)
 	res.json({
-		message: "voted!"
+		recipe
 	})
 })
 
