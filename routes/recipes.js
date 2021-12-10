@@ -53,7 +53,9 @@ router.post("/", isLoggedIn, upload.single('image'), async (req, res) => {
 		owner: {
 			id: req.user._id,
 			username: req.user.username
-		}
+		},
+		upvotes: [],
+		downvotes: []
 	}
 	try {
 		const recipe = await Recipe.create(newRecipe);
@@ -95,6 +97,13 @@ router.get("/category/:category", async (req, res) => {
 	} else {
 		res.send("Please enter a valid category")
 	}
+})
+
+// Vote Route 
+router.post("/vote", isLoggedIn, (req, res) => {
+	res.json({
+		message: "voted!"
+	})
 })
 
 //Show Route

@@ -21,7 +21,9 @@ const recipeSchema = new mongoose.Schema({
 			ref: "User"
 		},
 		username: String
-	}
+	},
+	upvotes: [String],
+	downvotes: [String]
 });
 
 recipeSchema.index({
