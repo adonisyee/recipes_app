@@ -24,16 +24,40 @@ const sendVote = async (voteType) => {
 		return data.json();
 	})
 	.then(res => {
-		console.log(res);
+		response = res.response;
+		handleVote(response.score, response.code);
 	})
 	.catch(err => {
 		console.log(err);
 	})
 }
 
+const handleVote = (newScore, code) => {
+	score.innerText = newScore;
+	if (code === 0) {
+		upvoteBtn.classList.remove('btn-success');
+		upvoteBtn.classList.add('btn-outline-success');
+		downvoteBtn.classList.add('btn-outline-danger');
+		downvoteBtn.classList.remove('btn-danger');
+	} else if (code === 1) {
+		upvoteBtn.classList.add('btn-success');
+		upvoteBtn.classList.remove('btn-outline-success');
+		downvoteBtn.classList.add('btn-outline-danger');
+		downvoteBtn.classList.remove('btn-danger');
+	} else if (code === -1) {
+		upvoteBtn.classList.remove('btn-success');
+		upvoteBtn.classList.add('btn-outline-success');
+		downvoteBtn.classList.remove('btn-outline-danger');
+		downvoteBtn.classList.add('btn-danger');
+	} else {
+		console.log("error in handleVote");
+	}
+}
+
 //Init variables
 const upvoteBtn = document.getElementById('upvote_btn');
 const downvoteBtn = document.getElementById('downvote_btn');
+const score = document.getElementById('score');
 
 //Event Listeners
 upvoteBtn.addEventListener('click', async function() {

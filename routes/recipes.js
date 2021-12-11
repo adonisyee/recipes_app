@@ -108,40 +108,41 @@ router.post("/vote", isLoggedIn, async (req, res) => {
 	if (alreadyUpvoted === -1 && alreadyDownvoted === -1) { //Has not yet voted
 		if (req.body.voteType === "up") {
 			recipe.upvotes.push(req.user.username);
-			response.message = "Upvote tallied!";
+			response = {message: "Upvote tallied!", code: 1};
 		} else if (req.body.voteType === "down" ) {
 			recipe.downvotes.push(req.user.username);
-			response.message = "Downvote tallied!";
+			response = {message: "Downvote tallied!", code: -1};
 		} else { //error
-			response.message("Error 1");
+			response = {message: "Error 1", code: "err"};
 		}
 		recipe.save();
 	} else if (alreadyUpvoted >= 0) {
 		recipe.upvotes.splice(alreadyUpvoted, 1);
 		if (req.body.voteType === "up") {
-			response. message = "Upvote removed!";
+			response = {message: "Upvote removed!", code: 0};
 		} else if (req.body.voteType === "down" ) {
 			recipe.downvotes.push(req.user.username);
-			response.message = "Downvote tallied and Upvote removed!";
+			response = {message: "Downvote tallied and Upvote removed!", code: -1};
 		} else { //error
-			response.message = "Error 2";
+			response = {message: "Error 2", code: "err"};
 		}
 		recipe.save();
 	} else if (alreadyDownvoted >= 0) {
 		recipe.downvotes.splice(alreadyDownvoted, 1);
 		if (req.body.voteType === "up") {
 			recipe.upvotes.push(req.user.username);
-			response.message = "Upvote tallied and Downvote removed!";
+			response = {message: "Upvote tallied and Downvote removed!", code: 1};
 		} else if (req.body.voteType === "down" ) {
-			response. message = "Downvote removed!";
+			response = {message: "Downvote removed!", code: 0};
 		} else { //error
-			response.message("Error 3");
+			response = {message: "Error 3", code: "err"};
 		}
 		recipe.save();
 	} else { // error
-		response.message("Error 4");
+		response = {message: "Error 4", code: "err"};
 	}
-	res.json({response})
+	response.score = recipe.upvotes.length - recipe.downvotes.length;
+	res.json({response});
 })
 
 //Show Route

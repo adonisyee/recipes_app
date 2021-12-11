@@ -59,17 +59,19 @@
 			<button class="btn btn-success btn-large my-3 mb-4">Add Comment</button>
 		</a>
 		<div class="col-2">
-			<% if (user) { %>
+			<% if (user && recipe.upvotes.indexOf(user.username) >= 0) { %>
+				<button class="btn btn-success btn-large mt-3 mb-4" id="upvote_btn">+</button>
+			<% } else if (user) { %>
 				<button class="btn btn-outline-success btn-large mt-3 mb-4" id="upvote_btn">+</button>
 			<% } %>
-			
-			<span id="score" class="mx-2">10</span>
-			<% if (user) { %>
+			<span id="score" class="mx-2"><%= recipe.upvotes.length - recipe.downvotes.length %></span>
+			<% if (user && recipe.downvotes.indexOf(user.username) >= 0) { %>
+				<button class="btn btn-danger btn-large mt-3 mb-4" id="downvote_btn">-</button>
+			<% } else if (user) { %>
 				<button class="btn btn-outline-danger btn-large mt-3 mb-4" id="downvote_btn">-</button>
 			<% } %>
 		</div>
 	</div>
-	
 	<% comments.forEach((comment) => { %>
 		<div class="row show_comment-container py-3 border">
 			<div class="col-2 border-end my-auto">
