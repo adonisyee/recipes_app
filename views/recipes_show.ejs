@@ -47,30 +47,39 @@
 				<p><%= i+1 %>. <%= recipe.cook_step[i] %></p>
 			<% } %>
 			<% if (user && user.username===recipe.owner.username) { %>
-				<a href="/recipes/<%= recipe._id %>/edit"><button class="btn btn-outline-info btn-lg btn-block mb-2">Edit</button></a>
+				<a href="/recipes/<%= recipe._id %>/edit"><button class="btn btn-outline-success btn-lg btn-block mb-2">Edit</button></a>
 				<form action="/recipes/<%= recipe._id %>?_method=DELETE" method="POST">
 					<button type="submit" class="btn btn-outline-danger btn-lg btn-block">Delete</button>
 				</form>
 			<% } %>
 		</div>
 	</div>
+	
+	<div class="row">
+		<div class="col-3">
+			<div class="row">
+				<% if (user && recipe.upvotes.indexOf(user.username) >= 0) { %>
+					<button class="btn btn-success btn-large mt-3 mb-4" id="upvote_btn">Upvote</button>
+				<% } else { %>
+					<button class="btn btn-outline-success btn-large mt-3 mb-4" id="upvote_btn">Upvote</button>
+				<% } %>
+			</div>
+			<div class="row mx-auto">
+				<span id="score" class="mx-auto text-center show_vote-text"><%= recipe.upvotes.length - recipe.downvotes.length %></span>
+			</div>
+			<div class="row">
+				<% if (user && recipe.downvotes.indexOf(user.username) >= 0) { %>
+					<button class="btn btn-danger btn-large mt-3 mb-4" id="downvote_btn">Downvote</button>
+				<% } else { %>
+					<button class="btn btn-outline-danger btn-large mt-3 mb-4" id="downvote_btn">Downvote</button>
+				<% } %>
+			</div>
+		</div>
+	</div>
 	<div class='row'>
 		<a href="/recipes/<%= recipe._id %>/comments/new" class="col-3">
 			<button class="btn btn-success btn-large my-3 mb-4">Add Comment</button>
 		</a>
-		<div class="col-2">
-			<% if (user && recipe.upvotes.indexOf(user.username) >= 0) { %>
-				<button class="btn btn-success btn-large mt-3 mb-4" id="upvote_btn">+</button>
-			<% } else if (user) { %>
-				<button class="btn btn-outline-success btn-large mt-3 mb-4" id="upvote_btn">+</button>
-			<% } %>
-			<span id="score" class="mx-2"><%= recipe.upvotes.length - recipe.downvotes.length %></span>
-			<% if (user && recipe.downvotes.indexOf(user.username) >= 0) { %>
-				<button class="btn btn-danger btn-large mt-3 mb-4" id="downvote_btn">-</button>
-			<% } else if (user) { %>
-				<button class="btn btn-outline-danger btn-large mt-3 mb-4" id="downvote_btn">-</button>
-			<% } %>
-		</div>
 	</div>
 	<% comments.forEach((comment) => { %>
 		<div class="row show_comment-container py-3 border">
@@ -94,5 +103,6 @@
 	</div>
 </div>
 <script>var recipeId = "<%- recipe._id %>"</script>
+<script> var isUser = <%- user? true : false %></script>
 <script src="/js/recipes_show.js"></script>
 <%- include("partials/footer") %>

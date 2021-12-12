@@ -24,7 +24,7 @@ const sendVote = async (voteType) => {
 		return data.json();
 	})
 	.then(res => {
-		response = res.response;
+		const response = res.response;
 		handleVote(response.score, response.code);
 	})
 	.catch(err => {
@@ -61,8 +61,16 @@ const score = document.getElementById('score');
 
 //Event Listeners
 upvoteBtn.addEventListener('click', async function() {
-	sendVote('up');
+	if (isUser) {
+		sendVote('up');
+	} else {
+		window.location.href = "../login";
+	}
 })
 downvoteBtn.addEventListener('click', async function() {
-	sendVote('down');
+	if (isUser) {
+		sendVote('down');
+	} else {
+		window.location.href = "../login";
+	}
 })

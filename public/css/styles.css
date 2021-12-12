@@ -21,13 +21,6 @@
 	font-size: 2rem;
 	margin: auto;
 }
-@media (min-width: 992px) {
-	.nav_title {
-		transform: translateX(-50%);
-		left: 50%;
-		position: absolute;
-	}
-}
 
 /* landing */
 .landing_container {
@@ -87,6 +80,11 @@
 .show_ingredients-container {
 	width: 40%;
 	margin-right: 10%;
+}
+
+.show_vote-text {
+	font-family: 'Readex Pro', sans-serif;
+	font-size: 2rem;
 }
 
 /* login */

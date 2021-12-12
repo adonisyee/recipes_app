@@ -34,7 +34,6 @@ router.get("/", async (req, res) => {
 //Create Route
 router.post("/", isLoggedIn, upload.single('image'), async (req, res) => {
 	const category = req.body.category.toLowerCase();
-	console.log(__dirname);
 	const newRecipe = {
 		category,
 		title: req.body.title,
