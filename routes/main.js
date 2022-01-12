@@ -6,4 +6,4 @@ router.get("/", (req, res) => {
 	res.render("landing");
 })
 
-module.exports = router;
+module.exports = router; 
