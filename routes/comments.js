@@ -34,7 +34,6 @@ router.post("/", isLoggedIn, async (req, res) => {
 router.get("/:commentId/edit", checkCommentOwner, async (req, res) => {
 	try {
 		const comment = await Comment.findById(req.params.commentId).exec();
-		console.log("comment:", comment);
 		res.render("comments_edit", {recipeId: req.params.id, comment});
 	} catch (err) {
 		console.log(err);
