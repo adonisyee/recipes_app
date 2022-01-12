@@ -98,6 +98,18 @@ router.get("/category/:category", async (req, res) => {
 	}
 })
 
+//Account Show Route
+router.get('/account/:account', async (req, res) => {
+	try {
+		const account = req.params.account;
+		const recipes = await Recipe.find({"owner.username": account}).exec();
+		res.render("account", {recipes, account});
+	} catch (err) {
+		console.log(err);
+		res.send("You broke it ...ACCOUNT");
+	}
+})
+
 // Vote Route 
 router.post("/vote", isLoggedIn, async (req, res) => {
 	const recipe = await Recipe.findById(req.body.recipeId)
