@@ -33,7 +33,7 @@ router.get('/login', (req, res) => {
 //Login
 router.post('/login', passport.authenticate('local', {failureRedirect: "/login", failureFlash: true}), (req, res) => {
 	req.flash('success', 'Logged in successfully!');
-    if (req.body.referer && (req.body.referer !== undefined && req.body.referer.slice(-6) !== "/login")) {
+    if (req.body.referer && (req.body.referer !== undefined && req.body.referer.slice(-6) !== "/login") && req.body.referer.slice(-7) !== "/signup") {
         res.redirect(req.body.referer);
     } else {
         res.redirect("/recipes");
