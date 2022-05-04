@@ -1,3 +1,114 @@
+/*media queries */
+@media (min-width: 320px) and (max-width: 999px) {
+	/*landing*/
+	.landing_title-container {
+		font-family: "Dancing Script", sans-serif;
+		margin-right: 10%;
+		width: 100%;
+	}
+	.landing_intro-container {
+		width: 100%;
+		text-align: center;
+	}
+	/*recipes*/
+	.card {
+		border: 1px solid #ddd;
+		border-radius: 1rem;
+		width: 90%;
+		padding: 0;
+	}
+	/*recipes-show*/
+	.show_image-container {
+		width: 100%;
+
+	}
+	.show_image-container img {
+		width: 90%;
+		margin-left: 5%;
+		margin-bottom: 1em;
+	}
+
+	.show_details-container {
+		width: 90%;
+		margin-left: 5%;
+	}
+	.show_ingredients-container {
+		width: 90%;
+		margin-left: 5%;
+	}
+	.show_steps-container {
+		width: 90%;
+		margin-left: 5%;
+	}
+	.show_votes-container {
+		width: 50%;
+		margin-left: 25%;
+	}
+	.show_add-comment {
+		margin-left: 5%;
+		width: 50%;
+	}
+	.show_comment-container {
+		margin-left: 5%;
+		margin-right: 5%;
+		
+	}
+	.show_comment-btns {
+		width: 30%;
+	}
+	/* login */
+	.login_container {
+		font-family: 'Roboto', sans-serif;
+		width: 80%;
+	}
+	/* signup */
+	.signup_container {
+		font-family: 'Roboto', sans-serif;
+		width: 60%;
+	}
+}
+
+@media (min-width: 1000px) {
+	/*landing*/
+	.landing_title-container  {
+		font-family: "Dancing Script", sans-serif;
+		margin-right: 10%;
+		width: 40%;
+	}
+	.landing_intro-container {
+		width: 50%;
+	}
+	/*recipes*/
+	.card {
+		border: 1px solid #ddd;
+		border-radius: 1rem;
+		width: 30%;
+		padding: 0;
+	}
+	/*recipes-show*/
+	.show_image-container img {
+		width: 80%;
+	}
+	.show_ingredients-container {
+		width: 40%;
+		margin-right: 10%;
+	}
+	/* login */
+	.login_container {
+		font-family: 'Roboto', sans-serif;
+		width: 60%;
+	}
+	/* signup */
+	.signup_container {
+		font-family: 'Roboto', sans-serif;
+		width: 40%;
+	}
+}
+
+body {
+	min-width: 375px;
+}
+
 /* site-wide */
 .custom-bg-color {
 	background-color: rgb(230, 69, 9);
@@ -26,11 +137,6 @@
 .landing_container {
 	font-family: "Roboto", sans-serif;
 }
-.landing_title-container {
-	font-family: "Dancing Script", sans-serif;
-	width: 40%;
-	margin-right: 10%;
-}
 
 #landing_title {
 	font-size: 8vw;
@@ -46,13 +152,6 @@
 }
 
 /* recipes */
-.card {
-	border: 1px solid #ddd;
-	border-radius: 1rem;
-	width: 30%;
-	padding: 0;
-}
-
 .card-img {
 	width: 100%;
 	height: 20rem;
@@ -73,29 +172,11 @@
 }
 
 /* show_recipes */
-.show_image-container img {
-	width: 80%;
-}
-
-.show_ingredients-container {
-	width: 40%;
-	margin-right: 10%;
-}
-
 .show_vote-text {
 	font-family: 'Readex Pro', sans-serif;
 	font-size: 2rem;
 }
 
-/* login */
-.login_container {
-	font-family: 'Roboto', sans-serif;
-	width: 60%;
-}
 
-/* signup */
-.signup_container {
-	font-family: 'Roboto', sans-serif;
-	width: 40%;
-}
+
 
